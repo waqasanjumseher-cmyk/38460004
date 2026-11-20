@@ -1,0 +1,365 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex,nofollow">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700;800&family=Lora:wght@500;700&family=Source+Sans+3:wght@600;700&display=swap" rel="stylesheet">
+<title>Admin | GHSS Bhabra</title>
+<style>
+:root{--g:#0b5a3b;--g2:#13875a;--gd:#072b1d;--gold:#d4a33a;--ink:#14221b;--bg:#eff3f0;--mut:#66756d;--line:#e2e8e4;--bad:#c0392b;--sh:0 1px 2px rgba(10,40,25,.06),0 8px 24px rgba(10,40,25,.07)}
+*{box-sizing:border-box}[hidden]{display:none!important}
+body{margin:0;background:var(--bg);color:var(--ink);font:15px/1.55 "Plus Jakarta Sans",system-ui,sans-serif}
+h1,h2,h3{margin:0;line-height:1.25}.m{color:var(--mut);font-size:13px}.err{color:var(--bad)}
+button{font:inherit;font-weight:600;cursor:pointer;border:1px solid var(--line);background:#fff;color:var(--ink);border-radius:10px;padding:8px 14px;display:inline-flex;align-items:center;gap:8px;transition:background .15s,box-shadow .15s,transform .15s}
+button:hover{background:#f4f8f5}button:focus-visible,input:focus-visible,select:focus-visible,textarea:focus-visible{outline:3px solid rgba(19,135,90,.35);outline-offset:1px}
+button.pri,.pri{background:linear-gradient(135deg,var(--g),var(--g2));color:#fff;border-color:transparent;box-shadow:0 4px 12px rgba(11,90,59,.25)}button.pri:hover{background:linear-gradient(135deg,#0a4f34,var(--g));box-shadow:0 6px 16px rgba(11,90,59,.3)}
+button.on{background:var(--g);color:#fff;border-color:var(--g)}button.del{color:var(--bad);border-color:#efc9c4}
+input,select,textarea{width:100%;font:inherit;padding:10px 12px;border:1px solid #d5ddd8;border-radius:10px;background:#fff;color:var(--ink)}textarea{min-height:100px;resize:vertical}
+input[type=color]{padding:2px;height:38px;width:60px}input[type=file]{border:0;padding:6px 0}input[type=range]{padding:0}input[type=checkbox]{width:auto}
+label{display:block;font-size:13px;font-weight:600;margin:14px 0 5px;color:#33463c}
+/* login */
+.lg{min-height:100vh;display:grid;grid-template-columns:1.1fr 1fr}
+.lg1{background:radial-gradient(circle at 20% 10%,#1b9a68 0,transparent 45%),linear-gradient(150deg,#0a3a28,#0b5a3b);color:#e8f4ee;padding:56px;display:flex;flex-direction:column;justify-content:center;gap:18px}
+.lg1 h2{font-size:34px;font-weight:800;color:#fff;max-width:12em}.lg1 p{max-width:30em;opacity:.9;margin:0}.lg1 ul{margin:0;padding-left:20px;opacity:.95}
+.lg2{display:grid;place-items:center;padding:24px}.lc{width:100%;max-width:400px;background:#fff;border-radius:20px;padding:34px;box-shadow:var(--sh)}.lc h1{font-size:26px;margin-bottom:4px}
+.wide{width:100%;justify-content:center;margin-top:8px;padding:12px}
+.brand{display:flex;align-items:center;gap:12px}.brand b{display:block;color:#fff;font-weight:800}.brand span{font-size:12px;opacity:.75}
+.bm{width:42px;height:42px;border-radius:50%;background:var(--g2);border:2px solid var(--gold);color:#fff;display:grid;place-items:center;font-weight:800;font-size:14px;flex:none}
+/* shell */
+.app{display:grid;grid-template-columns:264px 1fr;min-height:100vh}
+.side{position:sticky;top:0;height:100vh;background:linear-gradient(180deg,#0b3d2a,#061f15);color:#cfe3d8;padding:20px 14px;display:flex;flex-direction:column;gap:14px;overflow-y:auto}
+#tabs{display:flex;flex-direction:column;gap:3px;flex:1}.ng{font-size:11px;letter-spacing:.09em;text-transform:uppercase;color:#7fa593;margin:14px 10px 4px}
+#tabs button{background:none;border:0;color:#cfe3d8;border-radius:10px;padding:10px 12px;width:100%;justify-content:flex-start;box-shadow:none;font-weight:600;position:relative}
+#tabs button:hover{background:rgba(255,255,255,.08)}#tabs button.on{background:rgba(255,255,255,.14);color:#fff}
+#tabs button.on:before{content:"";position:absolute;left:-14px;top:9px;bottom:9px;width:4px;border-radius:0 4px 4px 0;background:var(--gold)}
+.sf{border-top:1px solid rgba(255,255,255,.12);padding-top:14px;display:flex;flex-direction:column;gap:10px}.sf small{color:#9fc0af;word-break:break-all}
+.ghost{background:rgba(255,255,255,.08)!important;color:#fff!important;border:0!important;justify-content:center}
+.shell{min-width:0}.tb{position:sticky;top:0;z-index:20;background:rgba(255,255,255,.9);backdrop-filter:blur(10px);border-bottom:1px solid var(--line);padding:14px 28px;display:flex;align-items:center;gap:14px}
+.tb h1{font-size:20px;font-weight:800}.tr{margin-left:auto;display:flex;gap:8px;flex-wrap:wrap}.ib{padding:8px;border-radius:10px}#mnu{display:none}
+.mn{padding:28px;max-width:1100px}.demo{background:#fff6dd;border:1px solid #f0dfa8;border-radius:12px;padding:10px 14px;margin:0 0 18px;font-size:14px}
+/* dashboard */
+.hero2{background:linear-gradient(120deg,#0b5a3b,#13875a 60%,#1fa874);color:#fff;border-radius:20px;padding:26px 28px;display:flex;justify-content:space-between;align-items:center;gap:16px;flex-wrap:wrap;margin-bottom:20px;box-shadow:var(--sh)}
+.hero2 h2{font-size:24px;font-weight:800}.hero2 p{margin:4px 0 0;opacity:.92}.hero2 a{background:rgba(255,255,255,.18);color:#fff;text-decoration:none;border:1px solid rgba(255,255,255,.35);border-radius:10px;padding:9px 16px;font-weight:700}
+.sg2{display:grid;gap:14px;grid-template-columns:repeat(auto-fill,minmax(190px,1fr));margin-bottom:20px}
+.sc{flex-direction:column;align-items:flex-start;gap:2px;padding:18px;border-radius:16px;text-align:left;box-shadow:var(--sh)}.sc:hover{transform:translateY(-2px);background:#fff}
+.sc b{font-size:30px;font-weight:800;line-height:1.1;margin-top:8px}.sc span{font-weight:700}.sc small{color:var(--mut);font-weight:500}
+.si{width:40px;height:40px;border-radius:12px;display:grid;place-items:center;background:#e4f3ec;color:var(--g)}
+.two2{display:grid;grid-template-columns:1fr 1fr;gap:16px}.card2{background:#fff;border-radius:16px;padding:20px;box-shadow:var(--sh)}.card2 h3{margin-bottom:12px;font-size:16px}
+.qg{display:grid;gap:8px}.qa{justify-content:flex-start;padding:12px 14px}.dr1{display:flex;gap:10px;align-items:center;padding:9px 0;border-bottom:1px solid var(--line)}.dr1 span{flex:1;font-weight:600;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}.dr1 small{color:var(--mut)}
+/* lists */
+.tool{display:flex;gap:12px;align-items:center;flex-wrap:wrap;margin-bottom:16px}.sr{position:relative;flex:1;min-width:200px}.sr span{position:absolute;left:12px;top:11px;color:var(--mut)}.sr input{padding-left:38px}
+.chips{display:flex;gap:6px;flex-wrap:wrap}.ch{border-radius:99px;padding:6px 14px}.ch i{font-style:normal;background:#eaf0ec;border-radius:99px;padding:0 8px;font-size:12px}.ch.on i{background:rgba(255,255,255,.25)}
+.row{display:flex;justify-content:space-between;align-items:center;gap:12px;background:#fff;border-radius:14px;padding:12px 14px;margin-bottom:10px;box-shadow:var(--sh)}
+.rl{display:flex;gap:14px;align-items:center;min-width:0}.rt{min-width:0}.rt b{display:block;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}.rt small{color:var(--mut);display:block}
+.th{width:58px;height:58px;border-radius:12px;object-fit:cover;flex:none}.th.ph{display:grid;place-items:center;background:#e4f3ec;color:var(--g);font-weight:800;font-size:20px}
+.bg{display:inline-block;font-size:11px;font-weight:700;border-radius:99px;padding:1px 9px;margin:4px 6px 0 0}.bg.Active{background:#dcf3e6;color:#12683f}.bg.Draft{background:#fdf0d2;color:#946200}.bg.Hidden{background:#e8ebea;color:#55625b}.bg.pn{background:#fff0c2;color:#7a5b00}
+.act{display:flex;gap:6px;flex:none}.act button{padding:8px;border-radius:10px}.act .pb{background:var(--g);color:#fff;border-color:var(--g)}.act .on{color:var(--gold);border-color:var(--gold)}.act .dl{color:var(--bad)}
+.empty{text-align:center;padding:48px 16px;background:#fff;border-radius:16px;box-shadow:var(--sh);color:var(--mut)}.empty b{display:block;color:var(--ink);margin-top:8px}
+/* panels (site, design, editors) */
+.panel{background:#fff;border-radius:18px;padding:24px;box-shadow:var(--sh);max-width:860px}.panel h2{font-size:17px}
+.panel .it{display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap;padding:12px 0;border-bottom:1px solid var(--line)}.panel .a{display:flex;gap:8px;flex-wrap:wrap;align-items:center}
+.panel .a select,.panel .a input[type=color]{width:auto}
+/* drawer */
+.dr{position:fixed;inset:0;z-index:70}.drb{position:absolute;inset:0;background:rgba(7,30,20,.45)}
+.drp{position:absolute;right:0;top:0;bottom:0;width:min(540px,100vw);background:#fff;display:flex;flex-direction:column;box-shadow:-10px 0 40px rgba(0,0,0,.2)}
+.dr:not([hidden]) .drp{animation:sl .22s ease}@keyframes sl{from{transform:translateX(40px);opacity:0}}
+.drh{display:flex;justify-content:space-between;align-items:center;padding:18px 22px;border-bottom:1px solid var(--line)}.drh h2{font-size:18px;text-transform:capitalize}
+.drf{padding:4px 22px 0;overflow-y:auto;flex:1}.drf>p:last-child{position:sticky;bottom:0;background:#fff;margin:14px -22px 0;padding:14px 22px;border-top:1px solid var(--line);display:flex;gap:8px;flex-wrap:wrap}
+.toast{position:fixed;left:50%;bottom:24px;transform:translateX(-50%);background:#12301f;color:#fff;padding:12px 20px;border-radius:12px;z-index:90;max-width:90vw;box-shadow:0 10px 30px rgba(0,0,0,.3)}.toast.err{background:#9c2c20}
+.scrim{display:none}
+/* preview */
+#pvw{position:fixed;z-index:60;background:#fff;border:1px solid var(--line);box-shadow:0 -6px 30px rgba(0,0,0,.25);display:flex;flex-direction:column;left:0;right:0;bottom:0;height:72vh;border-radius:16px 16px 0 0}
+.pvh{display:flex;justify-content:space-between;gap:6px;flex-wrap:wrap;padding:8px 10px;border-bottom:1px solid var(--line)}
+.pvb{flex:1;overflow:hidden;background:#dfe5e1;position:relative}#pvf{border:0;background:#fff;position:absolute;top:0;transform-origin:0 0}
+body.po{padding-bottom:72vh}
+@media(min-width:900px){#pvw{left:auto;top:0;width:48vw;height:auto;border-radius:0}body.po{padding-bottom:0}body.po .shell{margin-right:48vw}}
+@media(max-width:900px){
+ .lg{grid-template-columns:1fr}.lg1{padding:28px}.lg1 h2{font-size:24px}
+ .app{grid-template-columns:1fr}.side{position:fixed;left:-290px;width:276px;z-index:80;transition:left .25s}body.nv .side{left:0}
+ body.nv .scrim{display:block;position:fixed;inset:0;background:rgba(7,30,20,.5);z-index:75}
+ #mnu{display:inline-flex}.tb{padding:12px 16px}.mn{padding:16px}.two2{grid-template-columns:1fr}.tr span{display:none}.hero2{padding:20px}
+}
+.thg{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:14px;margin:12px 0}.thc{border:2px solid var(--line);border-radius:16px;padding:12px;display:flex;flex-direction:column;gap:8px}.thc.act{border-color:var(--g);box-shadow:0 0 0 3px rgba(19,135,90,.15)}
+.tm{height:118px;padding:6px;display:flex;flex-direction:column;gap:5px;border:1px solid var(--line)}.tmh{height:14px;border-radius:4px;display:flex;gap:4px;align-items:center;padding:0 5px}.tmh i{display:block;height:5px;width:22px;border-radius:3px}
+.tmo{flex:1;border-radius:5px;display:flex;align-items:flex-end;justify-content:space-between;padding:6px;color:#fff}.tmo b{font-size:20px;line-height:1}.tmo u{display:block;width:30px;height:9px;border-radius:5px}.tmc{display:flex;gap:4px;height:26px}.tmc s{flex:1;background:#fff;border:1px solid #dde3df}
+</style>
+</head>
+<body>
+<div id="login" class="lg">
+ <div class="lg1"><div class="brand"><div class="bm">GH</div><div><b>GHSS Bhabra</b><span>EMIS 38460004</span></div></div>
+  <h2>School website dashboard</h2><p>Manage notices, news, achievements, prides, teachers and the look of your website from one place.</p>
+  <ul><li>Changes go live instantly</li><li>Draft and publish workflow</li><li>Urdu and English content</li></ul></div>
+ <div class="lg2"><form id="lf" class="lc"><h1>Welcome back</h1><p class="m" style="margin:0">Sign in with your admin or editor account.</p>
+  <label>Email<input id="em" type="email" autocomplete="username" required></label>
+  <label>Password<input id="pw" type="password" autocomplete="current-password" required></label>
+  <p id="le" class="err"></p><button class="pri wide">Sign in</button></form></div>
+</div>
+<div id="app" class="app" hidden>
+ <aside class="side"><div class="brand"><div class="bm">GH</div><div><b>GHSS Bhabra</b><span>Admin dashboard</span></div></div>
+  <nav id="tabs"></nav><div class="sf"><small id="who"></small><button id="so" class="ghost"></button></div></aside>
+ <div class="scrim" id="scrim"></div>
+ <div class="shell">
+  <header class="tb"><button id="mnu" class="ib" aria-label="Menu"></button><div><h1 id="pt"></h1><span id="ps" class="m"></span></div>
+   <div class="tr"><button id="pvb"></button><button id="sd"></button><button id="bk"></button></div></header>
+  <main class="mn">
+   <div id="pgList" hidden><div class="tool"><div class="sr"><span id="sri"></span><input id="q" placeholder="Search" aria-label="Search"></div><div class="chips" id="chips"></div><button class="pri" id="addb"></button></div><div id="list"></div></div>
+   <div id="design" class="panel" hidden></div>
+   <div id="home"></div>
+  </main>
+ </div>
+</div>
+<div id="dr" class="dr" hidden><div class="drb" id="drb"></div><aside class="drp"><div class="drh"><h2 id="ft"></h2><button class="ib" id="drx" aria-label="Close"></button></div><form id="f" class="drf"></form></aside></div>
+<div id="toast" class="toast" hidden></div>
+<div id="pvw" hidden><div class="pvh"><b>Live preview</b><span><button data-dv="390">Mobile</button> <button data-dv="1280">Laptop</button> <button id="pvr">Reload</button> <button id="pvx">Close</button></span></div><div class="pvb"><iframe id="pvf" title="Live preview"></iframe></div></div>
+<script type="module">
+import {initializeApp} from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
+import {getAuth,signInWithEmailAndPassword,onAuthStateChanged,signOut} from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
+import {getFirestore,collection,onSnapshot,addDoc,setDoc,updateDoc,deleteDoc,doc,getDoc,getDocs,serverTimestamp} from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
+
+// Paste your Firebase web config here (same one as in index.html)
+const FB={apiKey:"AIzaSyDo111zC3OLSMYWOqhPFogHnC6JFiPtWJ4",authDomain:"ghss-c1e10.firebaseapp.com",projectId:"ghss-c1e10",storageBucket:"ghss-c1e10.firebasestorage.app",messagingSenderId:"16655227541",appId:"1:16655227541:web:909ce5a78bb0d2dd34d99c"};
+
+const S={
+ prides:{t:"Prides",k:"name",f:[["name","Name"],["group","Section","sel",[["student","Students and achievers"],["staff","Past staff (former, retired, late)"],["community","Local and community figures"]]],["role","Category (e.g. Former Teacher, Late Staff, Achiever at School, Proud Alumni)"],["period","Period, batch or year"],["bio","Achievement, service log or biography","area"],["photo","Photo (link, Google Drive link, or browse)","img",700],["link","Reference link (optional)","url"],["order","Display order","number"]]},
+ slides:{t:"Slides",k:"title",f:[["title","Headline"],["caption","Caption","area"],["image","Picture (link, Google Drive link, or browse)","img",1600],["align","Text position","sel",[["left","Left"],["center","Centre"],["right","Right"]]],["tc","Text colour","sel",[["","Default (white)"],["#ffffff","White"],["#000000","Black"],["#f5d98b","Soft gold"],["#d4a33a","Gold"],["#fff1c2","Cream"],["#b6f0d2","Mint"],["#ffd1d1","Light red"]]],["order","Display order","number"]]},
+ stories:{t:"Stories",k:"title",f:[["title","Title"],["date","Date","date"],["category","Category"],["summary","Summary","area"],["image","Picture (link, Google Drive link, or browse)","img",1000]]},
+ achievements:{t:"Achievements",k:"title",f:[["title","Title"],["year","Year or date"],["who","Student, class or team"],["description","Description","area"]]},
+ teachers:{t:"Teachers",k:"name",f:[["name","Name"],["designation","Designation"],["subject","Subject"],["qualification","Qualification","area"],["order","Display order","number"]]},
+ notices:{t:"Notices",k:"title",f:[["title","Title"],["date","Date","date"],["details","Details","area"],["link","Download link (Google Drive URL)","url"]]}
+};
+const $=id=>document.getElementById(id);
+const esc=s=>String(s??"").replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
+// Demo mode: while the Firebase config is not filled in, data is kept in this browser only and no login is needed.
+const demo=FB.apiKey.startsWith("YOUR_");
+let auth,db;if(!demo){auth=getAuth(initializeApp(FB));db=getFirestore(auth.app)}
+const ts=()=>demo?Date.now():serverTimestamp();
+const LS=c=>{try{return JSON.parse(localStorage.getItem("ghss_demo_"+c)||"[]")}catch{return[]}},SV=(c,a)=>localStorage.setItem("ghss_demo_"+c,JSON.stringify(a));
+let ls=null;
+const store=demo?{
+ watch:(c,cb)=>{ls=()=>cb(LS(c));ls();return()=>{ls=null}},
+ add:async(c,d)=>{const a=LS(c);a.push({id:"d"+Date.now()+Math.random().toString(36).slice(2,6),...d});SV(c,a);ls&&ls()},
+ set:async(c,id,d)=>{SV(c,LS(c).map(x=>x.id===id?{id,...d}:x));ls&&ls()},
+ upd:async(c,id,d)=>{SV(c,LS(c).map(x=>x.id===id?{...x,...d}:x));ls&&ls()},
+ del:async(c,id)=>{SV(c,LS(c).filter(x=>x.id!==id));ls&&ls()},
+ all:async c=>LS(c).map(x=>{x={...x};delete x.updatedAt;return x})
+}:{
+ watch:(c,cb,er)=>onSnapshot(collection(db,c),s=>cb(s.docs.map(d=>({id:d.id,...d.data()}))),er),
+ add:(c,d)=>addDoc(collection(db,c),d),
+ set:(c,id,d)=>setDoc(doc(db,c,id),d),
+ upd:(c,id,d)=>updateDoc(doc(db,c,id),d),
+ del:(c,id)=>deleteDoc(doc(db,c,id)),
+ all:async c=>(await getDocs(collection(db,c))).docs.map(d=>{const x=d.data();delete x.updatedAt;return{id:d.id,...x}})
+};
+const EDIT=["stories","achievements","notices","prides"];
+let Q="",FS="all",ROLE="super",cur="__home",editId=null,rows=[],unsub=null;
+const I={grid:'<rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/>',image:'<rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="M21 15l-5-5L5 21"/>',news:'<path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6M8 13h8M8 17h8"/>',award:'<circle cx="12" cy="8" r="6"/><path d="M15.5 13.5L17 22l-5-3-5 3 1.5-8.5"/>',bell:'<path d="M18 8a6 6 0 0 0-12 0c0 7-3 9-3 9h18s-3-2-3-9M13.7 21a2 2 0 0 1-3.4 0"/>',star:'<path d="M12 2l3.1 6.3 6.9 1-5 4.9 1.2 6.8-6.2-3.3-6.2 3.3L7 14.2 2 9.3l6.9-1z"/>',users:'<path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.9M16 3.1a4 4 0 0 1 0 7.8"/>',home:'<path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><path d="M9 22V12h6v10"/>',palette:'<circle cx="13.5" cy="6.5" r="1"/><circle cx="17.5" cy="10.5" r="1"/><circle cx="8.5" cy="7.5" r="1"/><circle cx="6.5" cy="12.5" r="1"/><path d="M12 2a10 10 0 1 0 0 20c1.1 0 2-.9 2-2 0-.5-.2-1-.5-1.3-.3-.4-.5-.8-.5-1.3 0-1.1.9-2 2-2h2.4a4 4 0 0 0 4-4C21 5.6 17 2 12 2z"/>',shield:'<path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>',plus:'<path d="M12 5v14M5 12h14"/>',search:'<circle cx="11" cy="11" r="8"/><path d="M21 21l-4.3-4.3"/>',edit:'<path d="M12 20h9"/><path d="M16.5 3.5a2.1 2.1 0 0 1 3 3L7 19l-4 1 1-4z"/>',eyeoff:'<path d="M17.9 17.9A10.9 10.9 0 0 1 12 20c-7 0-11-8-11-8a18.5 18.5 0 0 1 5.1-5.9M9.9 4.2A9.1 9.1 0 0 1 12 4c7 0 11 8 11 8a18.5 18.5 0 0 1-2.2 3.2M1 1l22 22"/>',eye:'<path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8S1 12 1 12z"/><circle cx="12" cy="12" r="3"/>',pin:'<path d="M12 17v5M9 3h6l-1 7 3 3H7l3-3z"/>',trash:'<path d="M3 6h18M8 6V4h8v2M19 6l-1 14H6L5 6"/>',upload:'<path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4M17 8l-5-5-5 5M12 3v12"/>',logout:'<path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4M16 17l5-5-5-5M21 12H9"/>',download:'<path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4M7 10l5 5 5-5M12 15V3"/>',menu:'<path d="M3 12h18M3 6h18M3 18h18"/>',x:'<path d="M18 6L6 18M6 6l12 12"/>',monitor:'<rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8M12 17v4"/>'};
+const ic=(n,z=18)=>`<svg width="${z}" height="${z}" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">${I[n]||""}</svg>`;
+const ICON={__home:"grid",__site:"home",__design:"palette",__users:"shield",slides:"image",stories:"news",achievements:"award",notices:"bell",prides:"star",teachers:"users"};
+const TITLES={__home:"Dashboard",__site:"School profile",__design:"Design and layout",__users:"Editors",...Object.fromEntries(Object.entries(S).map(([k,v])=>[k,v.t]))};
+const PS={__home:"Overview of your website content",__site:"Logo, statistics, about, principal, contact and map",__design:"Themes, section order, colours and slider",__users:"Who can edit the website"};
+const say=(t,bad)=>{const e=$("toast");e.className="toast"+(bad?" err":"");e.textContent=t;e.hidden=false;clearTimeout(say.t);say.t=setTimeout(()=>e.hidden=true,4200)};
+
+$("lf").onsubmit=async e=>{e.preventDefault();$("le").textContent="";
+ try{await signInWithEmailAndPassword(auth,$("em").value,$("pw").value)}
+ catch{$("le").textContent="Sign in failed. Check your email and password."}};
+$("so").onclick=()=>demo?location.reload():signOut(auth);
+const ADMINS=["waqasanjumseher@gmail.com"]; // super admin email(s): UI only, the same email must be in the Firestore rules
+const authCb=async u=>{
+ if(u&&!demo){const em=(u.email||"").toLowerCase();ROLE=ADMINS.includes(em)?"super":null;
+  if(!ROLE){try{const r=await getDoc(doc(db,"roles",em));if(r.exists()&&r.data().role==="editor")ROLE="editor"}catch{}}
+  if(!ROLE){$("le").textContent="This account has no access. Ask the super admin to add you as an editor.";signOut(auth);return}
+  cur="__home";$("who").textContent=(ROLE==="super"?"Super admin: ":"Editor: ")+em}
+ if(u&&demo)$("who").textContent="Demo mode";
+ $("sd").hidden=$("bk").hidden=ROLE!=="super";
+ $("login").hidden=!!u;$("app").hidden=!u;if(u)open(cur);else if(unsub)unsub()};
+if(demo){document.querySelector(".mn").insertAdjacentHTML("afterbegin",'<p class="demo">Demo mode: changes are saved only in this browser, and no login is needed. Add your Firebase config to go live.</p>');authCb(true)}
+else onAuthStateChanged(auth,authCb);
+
+function open(c){
+ cur=c;editId=null;
+ buildNav(c);
+ if(unsub)unsub();unsub=null;
+ const dz=c.startsWith("__");$("pgList").hidden=dz;$("design").hidden=!dz||c==="__home";$("home").hidden=c!=="__home";if(dz){({__home:drawHome,__design:drawDesign,__site:drawSite,__users:drawUsers})[c]();return}
+ Q="";FS="all";$("q").value="";closeDrawer();
+ unsub=store.watch(c,a=>{rows=a;
+  rows.sort((a,b)=>(b.pinned?1:0)-(a.pinned?1:0)||(cur==="teachers"||cur==="slides"||cur==="prides"?(a.order??999)-(b.order??999):String(b.date||b.year||"").localeCompare(String(a.date||a.year||""))));drawList()},
+  ()=>say("Could not load data. Check your Firestore rules and sign-in.",1));
+}
+function drawForm(d){
+ $("ft").textContent=(editId?"Edit ":"Add ")+S[cur].t.toLowerCase();
+ $("f").innerHTML=S[cur].f.map(([k,l,t,o])=>`<label>${l}`+(t==="area"?`<textarea name="${k}" dir="auto">${esc(d[k])}</textarea>`:t==="sel"?`<select name="${k}">${o.map(x=>`<option value="${x[0]}" ${d[k]===x[0]?"selected":""}>${x[1]}</option>`).join("")}</select>`:t==="img"?`<input name="${k}" dir="auto" value="${esc(d[k])}" placeholder="Paste a link, or browse below"><input type="file" accept="image/*" data-up="${k}" data-max="${o||1000}">`:`<input name="${k}" type="${t||"text"}" dir="auto" value="${esc(d[k])}">`)+`</label>`).join("")+
+ `
+  <label style="display:flex;gap:8px;align-items:center"><input type="checkbox" name="pinned" style="width:auto" ${d.pinned?"checked":""}> Pin to top</label>
+  <p><button class="pri" value="Active">Publish</button> <button value="Draft">Save as draft</button> <button type="button" id="cx">Cancel</button></p>`;
+ $("cx").onclick=closeDrawer;
+}
+function drawList(){
+ const st=r=>r.status||"Active",lab={Active:"Published",Draft:"Draft",Hidden:"Hidden"};
+ const cnt=k=>rows.filter(r=>k==="all"||st(r)===k).length;
+ $("chips").innerHTML=[["all","All"],["Active","Published"],["Draft","Drafts"],["Hidden","Hidden"]].map(([k,n])=>`<button class="ch ${FS===k?"on":""}" data-f="${k}">${n} <i>${cnt(k)}</i></button>`).join("");
+ const dv=u=>{const m=u.match(/drive\.google\.com\/file\/d\/([\w-]+)/)||u.match(/drive\.google\.com\/.*[?&]id=([\w-]+)/);return m?`https://drive.google.com/thumbnail?id=${m[1]}&sz=w200`:u};
+ const th=r=>{const u=String(r.image||r.photo||"");return /^(https?:|data:image)/.test(u)?`<img class="th" src="${esc(dv(u))}" alt="">`:`<span class="th ph">${esc([...String(r[S[cur].k]||"?")][0])}</span>`};
+ const sub=r=>[r.category,r.role,r.designation,r.subject,r.date,r.year,r.period].filter(Boolean).join(" · ");
+ const sh=rows.filter(r=>(FS==="all"||st(r)===FS)&&(!Q||Object.values(r).filter(v=>typeof v==="string"&&v.length<2000).join(" ").toLowerCase().includes(Q)));
+ $("list").innerHTML=sh.length?sh.map(r=>`<div class="row"><div class="rl">${th(r)}<div class="rt"><b dir="auto">${esc(r[S[cur].k])}</b><small dir="auto">${esc(sub(r))}</small><div><span class="bg ${st(r)}">${lab[st(r)]||st(r)}</span>${r.pinned?'<span class="bg pn">Pinned</span>':""}</div></div></div><div class="act" data-id="${r.id}"><button data-a="edit" title="Edit" aria-label="Edit">${ic("edit",16)}</button>${st(r)==="Draft"?`<button data-a="pub" class="pb" title="Publish" aria-label="Publish">${ic("upload",16)}</button>`:""}<button data-a="pin" class="${r.pinned?"on":""}" title="${r.pinned?"Unpin":"Pin to top"}" aria-label="Pin">${ic("pin",16)}</button><button data-a="hide" title="${st(r)==="Hidden"?"Show":"Hide"}" aria-label="Hide or show">${ic(st(r)==="Hidden"?"eye":"eyeoff",16)}</button>${ROLE==="super"?`<button data-a="del" class="dl" title="Delete" aria-label="Delete">${ic("trash",16)}</button>`:""}</div></div>`).join(""):`<div class="empty">${ic(ICON[cur],34)}<b>${rows.length?"No matches":"Nothing here yet"}</b><p class="m">${rows.length?"Try another search or filter.":"Add your first entry with the button above."}</p></div>`;
+}
+$("tabs").onclick=e=>{const b=e.target.closest("[data-tab]");if(b){open(b.dataset.tab);document.body.classList.remove("nv")}};
+$("f").onsubmit=async e=>{e.preventDefault();
+ const fd=new FormData($("f")),d={};
+ for(const [k,,t] of S[cur].f){let v=(fd.get(k)||"").trim();d[k]=t==="number"?(v===""?null:Number(v)):v}
+ d.status=(e.submitter&&e.submitter.value)||"Draft";d.pinned=fd.get("pinned")==="on";d.updatedAt=ts();
+ try{editId?await store.set(cur,editId,d):await store.add(cur,d);
+  say(d.status==="Active"?"Published. Visitors see it now.":"Saved as draft. Press Publish when it is ready.");editId=null;closeDrawer()}
+ catch{say("Could not save. Check your sign-in and Firestore rules.",1)}};
+$("list").onclick=async e=>{
+ const bt=e.target.closest("[data-a]");if(!bt)return;const a=bt.dataset.a,id=bt.parentElement.dataset.id;
+ const r=rows.find(x=>x.id===id);
+ try{
+  if(a==="edit"){editId=id;drawForm(r);openDrawer()}
+  if(a==="pin")await store.upd(cur,id,{pinned:!r.pinned});
+  if(a==="pub")await store.upd(cur,id,{status:"Active"});
+  if(a==="hide")await store.upd(cur,id,{status:r.status==="Hidden"?"Active":"Hidden"});
+  if(a==="del"&&ROLE==="super"&&confirm("Delete this item permanently? Use Hide to keep a copy."))await store.del(cur,id);
+ }catch{say("Action failed. Check your sign-in and Firestore rules.",1)}};
+// ---- Dashboard shell: navigation, overview, drawer ----
+function buildNav(c){const g=(t,l)=>l.length?`<div class="ng">${t}</div>`+l.map(k=>`<button data-tab="${k}" class="${k===c?"on":""}">${ic(ICON[k])}<span>${TITLES[k]}</span></button>`).join(""):"";
+ $("tabs").innerHTML=g("Overview",["__home"])+g("Content",Object.keys(S).filter(k=>ROLE==="super"||EDIT.includes(k)))+g("Website",ROLE==="super"?["__site","__design","__users"]:[]);
+ $("pt").textContent=TITLES[c]||"";$("ps").textContent=PS[c]||"Add, edit, publish and organise";}
+function openDrawer(){$("dr").hidden=false}
+function closeDrawer(){editId=null;$("dr").hidden=true}
+async function drawHome(){
+ const cols=Object.keys(S).filter(k=>ROLE==="super"||EDIT.includes(k)),data={},st=r=>r.status||"Active";
+ $("home").innerHTML='<p class="m">Loading...</p>';
+ for(const c of cols){try{data[c]=await store.all(c)}catch{data[c]=[]}}
+ const cards=cols.map(c=>{const a=data[c],lv=a.filter(r=>st(r)==="Active").length,d=a.filter(r=>st(r)==="Draft").length;return `<button class="sc" data-tab="${c}"><span class="si">${ic(ICON[c])}</span><b>${a.length}</b><span>${S[c].t}</span><small>${lv} published, ${d} draft${d===1?"":"s"}</small></button>`}).join("");
+ const nm={stories:"story",notices:"notice",achievements:"achievement",prides:"pride entry",teachers:"teacher",slides:"slide"};
+ const quick=cols.map(c=>`<button class="qa" data-new="${c}">${ic("plus",16)}<span>New ${nm[c]}</span></button>`).join("");
+ const dr=cols.flatMap(c=>data[c].filter(r=>st(r)==="Draft").map(r=>({c,r}))).slice(0,6);
+ $("home").innerHTML=`<div class="hero2"><div><h2>Welcome back</h2><p>Here is an overview of the content on the school website.</p></div><a href="index.html" target="_blank" rel="noopener">View website</a></div>
+ <div class="sg2">${cards}</div>
+ <div class="two2"><section class="card2"><h3>Quick actions</h3><div class="qg">${quick}</div></section>
+ <section class="card2"><h3>Waiting to be published</h3>${dr.length?dr.map(({c,r})=>`<div class="dr1"><span dir="auto">${esc(r[S[c].k])}</span><small>${S[c].t}</small><button data-open="${c}">Review</button></div>`).join(""):'<p class="m">No drafts. Everything is live.</p>'}</section></div>`}
+$("home").onclick=e=>{const b=e.target.closest("[data-tab],[data-new],[data-open]");if(!b)return;
+ if(b.dataset.tab||b.dataset.open)open(b.dataset.tab||b.dataset.open);
+ if(b.dataset.new){open(b.dataset.new);editId=null;drawForm({});openDrawer()}};
+$("addb").onclick=()=>{editId=null;drawForm({});openDrawer()};
+$("q").oninput=e=>{Q=e.target.value.toLowerCase();drawList()};
+$("chips").onclick=e=>{const b=e.target.closest("[data-f]");if(b){FS=b.dataset.f;drawList()}};
+$("drx").onclick=$("drb").onclick=closeDrawer;
+$("mnu").onclick=()=>document.body.classList.add("nv");$("scrim").onclick=()=>document.body.classList.remove("nv");
+addEventListener("keydown",e=>{if(e.key==="Escape")closeDrawer()});
+$("so").innerHTML=ic("logout",16)+"Sign out";$("pvb").innerHTML=ic("monitor",16)+"<span>Live preview</span>";$("sd").innerHTML=ic("grid",16)+"<span>Load sample data</span>";$("bk").innerHTML=ic("download",16)+"<span>Backup</span>";
+$("addb").innerHTML=ic("plus",16)+"Add new";$("mnu").innerHTML=ic("menu",20);$("drx").innerHTML=ic("x",20);$("sri").innerHTML=ic("search",16);
+// ---- Pictures: pick from device, resize and compress in the browser, store with the item ----
+const shrink=(f,max)=>new Promise((ok,no)=>{const fr=new FileReader();fr.onerror=no;fr.onload=()=>{const im=new Image();im.onerror=no;im.onload=()=>{const k=Math.min(1,max/Math.max(im.width,im.height)),c=document.createElement("canvas");c.width=Math.round(im.width*k);c.height=Math.round(im.height*k);const g=c.getContext("2d");g.fillStyle="#fff";g.fillRect(0,0,c.width,c.height);g.drawImage(im,0,0,c.width,c.height);let q=.8,o=c.toDataURL("image/jpeg",q);while(o.length>550000&&q>.35){q-=.08;o=c.toDataURL("image/jpeg",q)}ok(o)};im.src=fr.result};fr.readAsDataURL(f)});
+document.addEventListener("change",async e=>{const x=e.target;if(x.dataset.up===undefined||!x.files[0])return;
+ try{const o=await shrink(x.files[0],+x.dataset.max||1000);x.parentElement.querySelector('[name="'+x.dataset.up+'"]').value=o;say("Picture ready ("+Math.round(o.length/1024)+" KB after compression). Press Publish or Save to keep it.")}catch{say("Could not read that picture.",1)}});
+// ---- Live preview drawer ----
+let PW=390;
+const fit=()=>{const b=document.querySelector(".pvb"),f=$("pvf"),k=Math.min(1,b.clientWidth/PW);f.style.width=PW+"px";f.style.height=(b.clientHeight/k)+"px";f.style.transform="scale("+k+")";f.style.left=Math.max(0,(b.clientWidth-PW*k)/2)+"px"};
+$("pvb").onclick=()=>{const o=$("pvw").hidden;$("pvw").hidden=!o;document.body.classList.toggle("po",o);if(o){$("pvf").src="index.html";setTimeout(fit,60)}};
+$("pvw").onclick=e=>{const x=e.target;if(x.dataset.dv){PW=+x.dataset.dv;fit()}if(x.id==="pvr")try{$("pvf").contentWindow.location.reload()}catch{$("pvf").src="index.html"}if(x.id==="pvx")$("pvb").click()};
+addEventListener("resize",()=>{if(!$("pvw").hidden)fit()});
+const pvOpen=src=>{if($("pvw").hidden)$("pvb").click();$("pvf").src=src;setTimeout(fit,80)};
+// ---- Site profile (logo, statistics, about, principal, contact, map) saved in settings/profile ----
+const PF=[["logo","School logo","img",300],["s1v","Statistic 1: number (e.g. 1,200+)"],["s1l","Statistic 1: label (e.g. Students)"],["s2v","Statistic 2: number"],["s2l","Statistic 2: label"],["s3v","Statistic 3: number"],["s3l","Statistic 3: label"],["s4v","Statistic 4: number"],["s4l","Statistic 4: label"],["about","About the school","area"],["aboutImg","About picture","img",1000],["principalName","Principal's name"],["principal","Principal's message","area"],["principalImg","Principal's photo","img",500],["address","School address","area"],["hours","Office hours"],["phone","Official school phone"],["email","Official school email"],["map","Google Maps link or embed code (paste a share link or the whole iframe)","area"]];
+const mapSrc=v=>{v=String(v||"").trim();if(!v)return"";const f=v.match(/src\s*=\s*["']([^"']+)["']/i);if(f)v=f[1].replace(/&amp;/g,"&");
+ if(/^https:\/\/(www\.)?google\.[a-z.]+\/maps\/embed/i.test(v)||/output=embed/.test(v))return v;
+ if(!/^https?:\/\//i.test(v))return"https://maps.google.com/maps?q="+encodeURIComponent(v)+"&output=embed";
+ const at=v.match(/@(-?\d+\.\d+),(-?\d+\.\d+)/),pl=v.match(/\/maps\/place\/([^\/@?]+)/),q=v.match(/[?&]q=([^&]+)/);
+ const k=at?at[1]+","+at[2]:pl?decodeURIComponent(pl[1].replace(/\+/g," ")):q?decodeURIComponent(q[1].replace(/\+/g," ")):"";
+ return k?"https://maps.google.com/maps?q="+encodeURIComponent(k)+"&z=15&output=embed":""};
+const fld=([k,l,t,o],v)=>`<label>${l}`+(t==="area"?`<textarea name="${k}" dir="auto">${esc(v)}</textarea>`:t==="img"?`<input name="${k}" dir="auto" value="${esc(v)}" placeholder="Paste a link, or browse below"><input type="file" accept="image/*" data-up="${k}" data-max="${o||1000}">`:`<input name="${k}" dir="auto" value="${esc(v)}">`)+`</label>`;
+async function drawSite(){const P=await loadSet("profile");
+ $("design").innerHTML=`<h2 style="font-size:18px;margin:0 0 4px">School profile</h2><p class="m" style="margin:0 0 8px">Use official school contact details only. Never add personal phone numbers, CNICs or home addresses.</p><form id="pf">${PF.map(f=>fld(f,P[f[0]])).join("")}<p><button class="pri">Save profile</button></p></form>`;
+ $("pf").onsubmit=async e=>{e.preventDefault();const fd=new FormData($("pf")),d={};for(const[k]of PF)d[k]=(fd.get(k)||"").trim();
+  const raw=d.map;d.map=mapSrc(raw);
+  try{await saveSet(d,"profile");say(raw&&!d.map?"Saved, but the map link could not be read. Open the place in Google Maps and copy the full link from the address bar (short maps.app.goo.gl links cannot be used), or use Share, Embed a map.":"Profile saved. Visitors see it now.")}catch{say("Could not save. Check your sign-in and Firestore rules.",1)}}}
+// ---- Editors (super admin only) ----
+async function drawUsers(){
+ if(demo){$("design").innerHTML="<p>Editor accounts work once Firebase is connected.</p>";return}
+ let rs=[];try{rs=(await getDocs(collection(db,"roles"))).docs.map(d=>({id:d.id,...d.data()}))}catch{}
+ $("design").innerHTML=`<h2 style="font-size:18px;margin:0 0 6px">Editors</h2><p class="m">First create the person's login in Firebase (Authentication, Users, Add user), then add the same email here. Editors can add and edit stories, notices, achievements and prides. They cannot delete anything, or change the design, profile or editors.</p>${rs.map(r=>`<div class="it"><span>${esc(r.id)}</span><button class="del" data-ud="${esc(r.id)}">Remove</button></div>`).join("")||"<p>No editors yet.</p>"}<label>Editor email<input id="ue" type="email"></label><p><button class="pri" id="ua">Add editor</button></p>`}
+$("design").addEventListener("click",async e=>{const x=e.target;
+ try{if(x.id==="ua"){const em=$("ue").value.trim().toLowerCase();if(em){await setDoc(doc(db,"roles",em),{role:"editor"});say("Editor added.");drawUsers()}}
+  if(x.dataset.ud&&confirm("Remove this editor?")){await deleteDoc(doc(db,"roles",x.dataset.ud));say("Editor removed.");drawUsers()}}catch{say("Could not update editors. Check your Firestore rules.",1)}});
+// ---- Design: themes, section order and visibility, colours and fonts (saved in settings/site) ----
+const SECS={about:"About and principal",programs:"Classes and facilities",notices:"Notices and news",people:"Achievements and teachers",prides:"Prides and honour roll",gallery:"Photo gallery",contact:"Contact"};
+const THEMES={
+ heritage:{n:"Official Heritage Green",g:"#0b5a3b",a:"#d4a33a",bg:"#f3f6f2",fh:"Lora",r:14,o:["about","programs","notices","people","prides","gallery","contact"]},
+ blue:{n:"Modern Academic Blue",g:"#1747a6",a:"#f2b134",bg:"#f3f6fb",fh:"Plus Jakarta Sans",r:18,o:["about","notices","prides","people","programs","gallery","contact"]},
+ minimal:{n:"Clean Minimal Light",g:"#1f2937",a:"#0e9f6e",bg:"#ffffff",fh:"Source Sans 3",r:6,o:["about","programs","notices","prides","people","gallery","contact"]},
+ classic:{n:"Classic Institutional",g:"#7a1f2b",a:"#b8892b",bg:"#faf7f2",fh:"Lora",r:4,hd:"#4a1018",o:["about","prides","programs","notices","people","gallery","contact"]}};
+const PAL=[["White","#ffffff"],["Black","#000000"],["Dark green","#0b5a3b"],["Green","#13875a"],["Light green","#e4f3ec"],["Gold","#d4a33a"],["Cream","#faf3dc"],["Blue","#1747a6"],["Light blue","#e3edfb"],["Maroon","#7a1f2b"],["Grey","#6b7280"],["Light grey","#f1f3f2"]];
+const pal=(t,l)=>`<select data-nm="${t}" aria-label="${l}"><option value="">${l}</option>${PAL.map(([n,h])=>`<option value="${h}">${n}</option>`).join("")}</select>`;
+const thumb=v=>`<div class="tm" style="background:${v.bg};border-radius:${Math.min(v.r,10)}px"><div class="tmh" style="background:${v.hd||"#fff"}"><i style="background:${v.hd?"#fff":v.g}"></i><i style="background:${v.hd?"#ffffff88":"#cfd8d3"}"></i></div><div class="tmo" style="background:linear-gradient(90deg,${v.g},${v.g}cc)"><b style="font-family:'${v.fh}',serif">Aa</b><u style="background:${v.a}"></u></div><div class="tmc"><s style="border-radius:${v.r/3}px"></s><s style="border-radius:${v.r/3}px"></s><s style="border-radius:${v.r/3}px"></s></div></div>`;
+const FONTS=["Lora","Plus Jakarta Sans","Source Sans 3"];
+const loadSet=async(n="settings")=>{try{return demo?JSON.parse(localStorage.getItem("ghss_demo_"+n)||"{}"):((await getDoc(doc(db,"settings",n==="settings"?"site":n))).data()||{})}catch{return{}}};
+const saveSet=async(s,n="settings")=>{s.status="Active";s.updatedAt=ts();demo?localStorage.setItem("ghss_demo_"+n,JSON.stringify(s)):await setDoc(doc(db,"settings",n==="settings"?"site":n),s)};
+let DS={};
+async function drawDesign(){DS=await loadSet();paintDesign()}
+function curOrder(){const th=THEMES[DS.theme]||THEMES.heritage,o=(DS.order&&DS.order.length?DS.order:th.o).filter(k=>SECS[k]);for(const k in SECS)if(!o.includes(k))o.push(k);return o}
+function paintDesign(){const t=THEMES[DS.theme]?DS.theme:"heritage",th=THEMES[t],hid=DS.hidden||[];
+ $("design").innerHTML=`<h2 style="font-size:18px;margin:0 0 6px">Theme</h2><p style="margin:0 0 8px">Switching a theme never changes your stories, notices, teachers, prides or backups. It sets colours, fonts, card style, slider look and section order.</p>
+ <div class="thg">${Object.entries(THEMES).map(([k,v])=>`<div class="thc ${k===t?"act":""}">${thumb(v)}<b>${v.n}</b><div class="a"><button data-pv="${k}">Preview</button><button data-th="${k}" class="${k===t?"on":""}">${k===t?"Active":"Apply"}</button></div></div>`).join("")}</div><p class="m" style="margin:0">Preview shows your real website in that theme without saving anything. Press Apply to make it live.</p>
+ <h2 style="font-size:18px;margin:18px 0 0">Sections: order and visibility</h2>
+ ${curOrder().map(k=>`<div class="it"><label style="display:flex;gap:8px;align-items:center;margin:0"><input type="checkbox" style="width:auto" data-sh="${k}" ${hid.includes(k)?"":"checked"}> ${SECS[k]}</label><div class="a"><button data-mv="${k}" data-d="-1" aria-label="Move up">&uarr;</button><button data-mv="${k}" data-d="1" aria-label="Move down">&darr;</button></div><div class="a" style="width:100%"><select data-fs="${k}" aria-label="Text size"><option value="">Text size</option>${[90,100,115,130].map(n=>`<option value="${n}" ${DS.styles?.[k]?.fs===n?"selected":""}>${n}%</option>`).join("")}</select><input type="color" data-tc="${k}" value="${DS.styles?.[k]?.tc||"#17221c"}" title="Text colour" style="width:52px">${pal("tc|"+k,"Text colour by name")}<input type="color" data-bg="${k}" value="${DS.styles?.[k]?.bg||"#ffffff"}" title="Background colour" style="width:52px">${pal("bg|"+k,"Background by name")}<button data-sr="${k}">Reset</button></div></div>`).join("")}
+ <h2 style="font-size:18px;margin:18px 0 0">Fine tune</h2>
+ <label>Main colour</label><div class="a"><input type="color" id="cg" value="${DS.g||th.g}">${pal("g","Or pick by name")}</div><label>Accent colour</label><div class="a"><input type="color" id="ca" value="${DS.accent||th.a}">${pal("accent","Or pick by name")}</div>
+ <label>Heading font<select id="cf"><option value="">Theme default</option>${FONTS.map(f=>`<option ${DS.fh===f?"selected":""}>${f}</option>`).join("")}</select></label>
+ <label>Slider overlay darkness<input type="range" id="co" min="0" max="95" value="${DS.ov??90}"></label><p><button id="rs">Reset colours and font</button></p>`}
+const commit=async()=>{try{await saveSet(DS);say("Saved. Visitors see the change now.");paintDesign();if(!$("pvw").hidden)$("pvf").src="index.html"}catch{say("Could not save. Check your sign-in and Firestore rules.",1)}};
+$("design").onclick=e=>{const x=e.target;
+ if(x.dataset.pv)pvOpen("index.html?theme="+x.dataset.pv);
+ if(x.dataset.th){const k=x.dataset.th;DS={theme:k,order:THEMES[k].o.slice(),hidden:[]};commit()}
+ if(x.dataset.mv){const o=curOrder(),i=o.indexOf(x.dataset.mv),j=i+ +x.dataset.d;if(j>=0&&j<o.length){[o[i],o[j]]=[o[j],o[i]];DS.order=o;commit()}}
+ if(x.dataset.sr){if(DS.styles)delete DS.styles[x.dataset.sr];commit()}
+ if(x.id==="rs"){delete DS.g;delete DS.accent;delete DS.fh;commit()}};
+$("design").onchange=e=>{const x=e.target;
+ if(x.dataset.sh){const h=new Set(DS.hidden||[]);x.checked?h.delete(x.dataset.sh):h.add(x.dataset.sh);DS.hidden=[...h];commit()}
+ if(x.id==="cg"){DS.g=x.value;commit()}if(x.id==="ca"){DS.accent=x.value;commit()}
+ if(x.id==="cf"){x.value?DS.fh=x.value:delete DS.fh;commit()}
+ const k=x.dataset.fs||x.dataset.tc||x.dataset.bg;
+ if(k){DS.styles=DS.styles||{};const t=DS.styles[k]=DS.styles[k]||{};
+  if(x.dataset.fs){x.value?t.fs=+x.value:delete t.fs}if(x.dataset.tc)t.tc=x.value;if(x.dataset.bg)t.bg=x.value;commit()}
+ if(x.id==="co"){DS.ov=+x.value;commit()}
+ if(x.dataset.nm&&x.value){const[f,kk]=x.dataset.nm.split("|");if(f==="g")DS.g=x.value;else if(f==="accent")DS.accent=x.value;else{DS.styles=DS.styles||{};(DS.styles[kk]=DS.styles[kk]||{})[f]=x.value}commit()}};
+const A=l=>l.map(d=>({status:"Active",pinned:false,...d}));
+const SAMPLE={
+ prides:A([
+  {name:"Late Sample Teacher",group:"staff",role:"Late Staff",period:"1985 to 2012",bio:"Served the school for 27 years as a mathematics teacher and guided generations of students. Sample tribute text.",order:1,pinned:true},
+  {name:"Sample Alumnus",group:"student",role:"Proud Alumni",period:"Batch of 2005",bio:"Now serves as an engineer. Sample text: write the career and what makes the school proud.",order:2},
+  {name:"Sample Student Team",group:"student",role:"Achiever at School",period:"2026",bio:"District champions in the inter-school competition. Sample text.",order:3},
+  {name:"Sample Community Supporter",group:"community",role:"Community figure",period:"Local philanthropist",bio:"Donated books to the school library. Sample text.",order:4}]),
+ slides:A([
+  {title:"Government Higher Secondary School Bhabra",caption:"Quality education, discipline and character building.",image:"https://picsum.photos/seed/ghsshero/1600/700",order:1},
+  {title:"Admissions open for the new session",caption:"Visit the school office with the required documents.",image:"https://picsum.photos/seed/ghssadm/1600/700",order:2}]),
+ stories:A([
+  {title:"Annual Sports Day 2026",date:"2026-11-10",category:"Events",summary:"Students from every class took part in races, tug of war and cricket. Sample text: replace with your own story.",image:"https://picsum.photos/seed/ghss1/600/400",pinned:true},
+  {title:"سائنس نمائش",date:"2026-10-25",category:"Academics",summary:"طلبہ نے سائنس نمائش میں اپنے تیار کردہ ماڈل پیش کیے۔ (نمونہ متن)",image:"https://picsum.photos/seed/ghss2/600/400"}]),
+ achievements:A([
+  {title:"First position in the board examination",year:"2026",who:"Sample Student, Class 10",description:"Secured the top position in the school in the annual board result.",pinned:true},
+  {title:"District inter-school debate winners",year:"2026",who:"School debate team",description:"Sample text: describe the achievement here."}]),
+ teachers:A([
+  {name:"Sample Teacher One",designation:"Principal",subject:"",qualification:"M.A., M.Ed.",order:1},
+  {name:"Sample Teacher Two",designation:"Senior Subject Specialist",subject:"Physics",qualification:"M.Sc., B.Ed.",order:2},
+  {name:"نمونہ استاد",designation:"سینئر ٹیچر",subject:"اردو",qualification:"ایم اے، بی ایڈ",order:3}]),
+ notices:A([
+  {title:"Winter vacations schedule",date:"2026-11-18",details:"Sample notice. Add the dates and instructions here.",link:"https://drive.google.com/",pinned:true},
+  {title:"Admissions open for Class 9 and 11",date:"2026-11-05",details:"Sample notice. Add the admission details here."}])
+};
+$("sd").onclick=async()=>{
+ if(!confirm("Add sample items to all four sections? You can edit or delete them afterwards."))return;
+ try{for(const c of Object.keys(SAMPLE))for(const d of SAMPLE[c])await store.add(c,{...d,updatedAt:ts()});
+  say("Sample data added. Edit or delete it before launch.")}
+ catch{say("Could not add sample data. Check your sign-in and Firestore rules.",1)}};
+$("bk").onclick=async()=>{
+ try{const out={exportedAt:new Date().toISOString()};
+  for(const c of Object.keys(S)){out[c]=await store.all(c)}out.settings=await loadSet();out.profile=await loadSet("profile");
+  const a=document.createElement("a");a.href=URL.createObjectURL(new Blob([JSON.stringify(out,null,2)],{type:"application/json"}));
+  a.download="ghss-bhabra-backup-"+new Date().toISOString().slice(0,10)+".json";a.click();say("Backup downloaded.")}
+ catch{say("Backup failed. Check your sign-in and Firestore rules.",1)}};
+</script>
+</body>
+</html>
