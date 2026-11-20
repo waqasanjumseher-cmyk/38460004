@@ -128,14 +128,17 @@ footer .cp{display:block;margin-top:22px;padding-top:16px;border-top:1px solid r
 #up{position:fixed;right:18px;bottom:18px;width:44px;height:44px;border-radius:50%;border:0;background:var(--g);color:#fff;font-size:20px;cursor:pointer;opacity:0;pointer-events:none;transform:translateY(10px);transition:.25s;z-index:40;box-shadow:0 6px 18px rgba(0,0,0,.25)}#up.show{opacity:1;pointer-events:auto;transform:none}
 @media(max-width:820px){footer .fg{grid-template-columns:1fr}}
 @media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}.rv{opacity:1;transform:none}#tkm{white-space:normal}}
+.logo{width:74px;height:74px;font-size:20px}.logo.has{background:none;border-radius:0;width:auto;max-width:120px}.logo.has img{width:auto;height:100%;object-fit:contain}
+.nm span{line-height:1.5;margin-top:2px}.hb{padding-top:8px;gap:4px 16px}nav{margin-top:4px;padding-top:4px;padding-bottom:4px}
+@media(max-width:820px){.logo{width:58px;height:58px;font-size:16px}.logo.has{max-width:90px}}
 </style>
 </head>
 <body>
 <div id="sp"></div>
-<div class="ub"><div class="c"><span>Official website &middot; EMIS 38460004</span><span id="ubc"></span></div></div>
+<div class="ub"><div class="c"><span id="ubc"></span></div></div>
 <header><div class="hb">
  <div class="logo" id="logo">GHSS</div>
- <div class="nm"><h1>Government Higher Secondary School Bhabra</h1><span dir="rtl">گورنمنٹ ہائر سیکنڈری سکول بھابھرا</span></div>
+ <div class="nm"><h1 id="sn">Government Higher Secondary School Bhabra</h1><span id="snu" dir="rtl">گورنمنٹ ہائر سیکنڈری سکول بھابھرا</span></div>
  <span class="emis">EMIS 38460004</span>
  <nav id="nav"><a href="#about">About</a><a href="#programs">Classes</a><a href="#/notices">Notices</a><a href="#/news">News</a><a href="#/achievements">Achievements</a><a href="#/teachers">Teachers</a><a href="#/students">Students</a><a href="#/staff">Past staff</a><a href="#/community">Community</a><a href="#gallery">Gallery</a><a href="#contact">Contact</a></nav>
 </div></header>
@@ -169,8 +172,8 @@ footer .cp{display:block;margin-top:22px;padding-top:16px;border-top:1px solid r
 <section id="contact"><div class="c"><h2>Contact us <small>رابطہ</small></h2><div class="ct"><div class="card" id="contactText"></div><div id="mapBox"></div></div></div></section>
 </main>
 <div id="view" hidden><section><div class="c"><a class="back" href="#">&larr; Back to home</a><h2 id="vt"></h2><div class="grid" id="view-l"></div></div></section></div>
-<footer><div class="c fg"><div><b>Government Higher Secondary School Bhabra</b><p>Official website<br>EMIS Code: 38460004</p></div><div><b>Explore</b><a href="#about">About the school</a><a href="#/notices">Notices</a><a href="#/news">News</a><a href="#/teachers">Teachers</a><a href="#contact">Contact</a></div><div><b>Contact</b><p id="fc"></p></div></div>
-<div class="c cp">&copy; <span id="yr"></span> Government Higher Secondary School Bhabra. All rights reserved.</div></footer>
+<footer><div class="c fg"><div><b id="fn">Government Higher Secondary School Bhabra</b><p>EMIS Code: 38460004</p></div><div><b>Explore</b><a href="#about">About the school</a><a href="#/notices">Notices</a><a href="#/news">News</a><a href="#/teachers">Teachers</a><a href="#contact">Contact</a></div><div><b>Contact</b><p id="fc"></p></div></div>
+<div class="c cp">&copy; <span id="yr"></span> <span id="fn2">Government Higher Secondary School Bhabra</span>. All rights reserved.</div></footer>
 <button id="up" aria-label="Back to top">&uarr;</button>
 
 <script type="module">
@@ -216,14 +219,18 @@ const mapSrc=v=>{v=String(v||"").trim();if(!v)return"";const f=v.match(/src\s*=\
  const k=at?at[1]+","+at[2]:pl?decodeURIComponent(pl[1].replace(/\+/g," ")):q?decodeURIComponent(q[1].replace(/\+/g," ")):"";
  return k?"https://maps.google.com/maps?q="+encodeURIComponent(k)+"&z=15&output=embed":""};
 const renderStatic=P=>{const C={...CFG};for(const[k,v]of Object.entries(P||{}))if(v!==""&&v!=null&&k!=="status"&&k!=="updatedAt")C[k]=v;
+ const nm=C.schoolName||"Government Higher Secondary School Bhabra",nu=C.schoolNameUr||"گورنمنٹ ہائر سیکنڈری سکول بھابھرا";
+ $("sn").textContent=nm;$("snu").textContent=nu;$("fn").textContent=nm;$("fn2").textContent=nm;document.title=nm+" | EMIS 38460004";
+ const pr=[1,2,3,4,5,6].map(i=>C["p"+i+"t"]?[C["p"+i+"t"],C["p"+i+"d"]||""]:null).filter(Boolean);
+ const fac=Array.isArray(C.facilities)?C.facilities:String(C.facilities||"").split(/[\n,]+/).map(x=>x.trim()).filter(Boolean);
  const st=[1,2,3,4].map(i=>C["s"+i+"v"]?[C["s"+i+"v"],C["s"+i+"l"]||""]:null).filter(Boolean);
  const ab=img(C.aboutImg);ab&&($("aboutImg").src=ab);$("aboutImg").hidden=!ab;
- const lg=img(C.logo);$("logo").innerHTML=lg?`<img src="${esc(lg)}" alt="School logo">`:"GHSS";
+ const lg=img(C.logo);$("logo").innerHTML=lg?`<img src="${esc(lg)}" alt="School logo">`:esc(C.logoText||"GHSS");$("logo").classList.toggle("has",!!lg);
  $("aboutText").textContent=C.about;$("principal").textContent=C.principal;$("pname").textContent=C.principalName;
  $("pp").innerHTML=img(C.principalImg)?`<img src="${esc(img(C.principalImg))}" alt="Principal">`:ini(C.principalName);
  $("stats").innerHTML=(st.length?st:CFG.stats).map(s=>`<div><b>${esc(s[0])}</b><span>${esc(s[1])}</span></div>`).join("");
- $("progs").innerHTML=C.programs.map(p=>`<div class="card prog"><h3>${esc(p[0])}</h3><p dir="auto">${esc(p[1])}</p></div>`).join("");
- $("fac").innerHTML=C.facilities.map(f=>`<span dir="auto">${esc(f)}</span>`).join("");
+ $("progs").innerHTML=(pr.length?pr:CFG.programs).map(p=>`<div class="card prog"><h3>${esc(p[0])}</h3><p dir="auto">${esc(p[1])}</p></div>`).join("");
+ $("fac").innerHTML=fac.map(f=>`<span dir="auto">${esc(f)}</span>`).join("");
  $("contactText").innerHTML=`<p><b>Address</b><br>${esc(C.address)}</p><p><b>Office hours</b><br>${esc(C.hours)}</p><p><b>Phone</b><br>${esc(C.phone)}</p><p style="margin:0"><b>Email</b><br>${esc(C.email)}</p>`;
  const ms=mapSrc(C.map);$("mapBox").innerHTML=ms?`<iframe src="${esc(ms)}" loading="lazy" title="School location"></iframe>`:'<div class="ph">The school location map will appear here.</div>';
  $("fc").innerHTML=[C.address,C.phone,C.email].filter(Boolean).map(esc).join("<br>");$("ubc").textContent=[C.phone,C.email].filter(Boolean).join("  |  ");$("yr").textContent=new Date().getFullYear();cuAll()};
@@ -233,7 +240,7 @@ renderStatic({});
 let SL=[],si=0,tm;
 const go=i=>{si=(i+SL.length)%SL.length;const pb=document.querySelector(".pbar i");if(pb){pb.style.animation="none";void pb.offsetWidth;pb.style.animation=""}document.querySelectorAll(".sl").forEach((e,k)=>e.classList.toggle("on",k===si));document.querySelectorAll(".dot").forEach((e,k)=>e.classList.toggle("on",k===si))};
 const drawSlides=a=>{SL=a.length?a:CFG.slides;
- $("slides").innerHTML=SL.map(s=>`<div class="sl"><div class="bg" style="${img(s.image)?`background-image:url('${esc(img(s.image))}')`:""}"></div><div class="c al-${["center","right"].includes(s.align)?s.align:"left"}" style="${/^#[0-9a-f]{6}$/i.test(s.tc)?"color:"+s.tc:""}"><span class="tag">Official website &middot; EMIS 38460004</span><div class="ht" dir="auto">${esc(s.title)}</div><p class="hp" dir="auto">${esc(s.caption)}</p><a class="btn b1" href="#notices">Latest notices</a><a class="btn b2" href="#contact">Contact us</a></div></div>`).join("");
+ $("slides").innerHTML=SL.map(s=>`<div class="sl"><div class="bg" style="${img(s.image)?`background-image:url('${esc(img(s.image))}')`:""}"></div><div class="c al-${["center","right"].includes(s.align)?s.align:"left"}" style="${/^#[0-9a-f]{6}$/i.test(s.tc)?"color:"+s.tc:""}"><div class="ht" dir="auto">${esc(s.title)}</div><p class="hp" dir="auto">${esc(s.caption)}</p><a class="btn b1" href="#notices">Latest notices</a><a class="btn b2" href="#contact">Contact us</a></div></div>`).join("");
  $("dots").innerHTML=SL.map((_,k)=>`<button class="dot" aria-label="Slide ${k+1}" data-d="${k}"></button>`).join("");
  $("hero").classList.toggle("one",SL.length<2);go(0);clearInterval(tm);
  if(SL.length>1&&!matchMedia("(prefers-reduced-motion:reduce)").matches)tm=setInterval(()=>go(si+1),6000)};
