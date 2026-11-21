@@ -10,11 +10,13 @@
 <meta property="og:description" content="Notices, achievements, news and staff of GHSS Bhabra.">
 <meta property="og:image" content="og.jpg">
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Noto+Nastaliq+Urdu:wght@400;700&family=Plus+Jakarta+Sans:wght@400;600;700;800&family=Lora:wght@500;700&family=Source+Sans+3:wght@400;600;700&family=Noto+Naskh+Arabic:wght@400;700&display=swap" rel="stylesheet">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link rel="preconnect" href="https://www.gstatic.com" crossorigin>
+<link rel="modulepreload" href="https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js"><link rel="modulepreload" href="https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore-lite.js">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Nastaliq+Urdu&family=Plus+Jakarta+Sans:wght@400;700;800&family=Lora:wght@500;700&family=Source+Sans+3:wght@400;600;700&display=swap" rel="stylesheet" media="print" onload="this.media='all'">
 <style>
 :root{--g:#0b5a3b;--gold:#d4a33a;--bg:#f3f6f2;--r:14px;--hh:76vh;--fh:"Lora";--fb:"Source Sans 3";--fu:"Noto Nastaliq Urdu";--sh:0 1px 2px rgba(0,0,0,.05),0 10px 28px rgba(10,60,40,.07)}
 [data-theme=blue]{--g:#1747a6;--gold:#f2b134;--bg:#f3f6fb;--r:18px;--hh:70vh;--fh:"Plus Jakarta Sans";--fb:"Plus Jakarta Sans"}
-[data-theme=minimal]{--g:#1f2937;--gold:#0e9f6e;--bg:#fff;--r:6px;--hh:50vh;--fh:"Source Sans 3";--fb:"Source Sans 3";--fu:"Noto Naskh Arabic";--sh:0 0 0 1px #e5e7eb}
+[data-theme=minimal]{--g:#1f2937;--gold:#0e9f6e;--bg:#fff;--r:6px;--hh:50vh;--fh:"Source Sans 3";--fb:"Source Sans 3";--fu:"Noto Nastaliq Urdu";--sh:0 0 0 1px #e5e7eb}
 [data-theme=classic]{--g:#7a1f2b;--gold:#b8892b;--bg:#faf7f2;--r:4px;--hh:62vh;--fh:"Lora";--fb:"Source Sans 3";--sh:0 1px 3px rgba(60,30,10,.14)}
 :root{--gd:color-mix(in srgb,var(--g) 62%,#000);--soft:color-mix(in srgb,var(--g) 10%,#fff);--ink:#17221c;--mut:#5f6b66;--line:#e3e7e4}
 *{box-sizing:border-box}html{scroll-behavior:smooth;scroll-padding-top:76px}
@@ -178,7 +180,7 @@ footer .cp{display:block;margin-top:22px;padding-top:16px;border-top:1px solid r
 
 <script type="module">
 import {initializeApp} from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
-import {getFirestore,collection,query,where,onSnapshot,doc} from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
+import {getFirestore,collection,query,where,limit,getDocs,getDoc,doc} from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore-lite.js";
 
 // 1) Paste your Firebase web config here (same one as in admin.html)
 const FB={apiKey:"AIzaSyDo111zC3OLSMYWOqhPFogHnC6JFiPtWJ4",authDomain:"ghss-c1e10.firebaseapp.com",projectId:"ghss-c1e10",storageBucket:"ghss-c1e10.firebasestorage.app",messagingSenderId:"16655227541",appId:"1:16655227541:web:909ce5a78bb0d2dd34d99c"};
@@ -187,12 +189,12 @@ const FB={apiKey:"AIzaSyDo111zC3OLSMYWOqhPFogHnC6JFiPtWJ4",authDomain:"ghss-c1e1
 const CFG={
  logo:"", // link to the school logo image
  slides:[
-  {title:"Government Higher Secondary School Bhabra",caption:"Quality education, discipline and character building.",image:"https://picsum.photos/seed/ghsshero/1600/700"},
-  {title:"Admissions open for the new session",caption:"Visit the school office with the required documents, or see the notice board.",image:"https://picsum.photos/seed/ghssadm/1600/700"},
-  {title:"Celebrating our students' achievements",caption:"Board results, sports and co-curricular success.",image:"https://picsum.photos/seed/ghssach/1600/700"}],
+  {title:"Government Higher Secondary School Bhabra",caption:"Quality education, discipline and character building.",image:""},
+  {title:"Admissions open for the new session",caption:"Visit the school office with the required documents, or see the notice board.",image:""},
+  {title:"Celebrating our students' achievements",caption:"Board results, sports and co-curricular success.",image:""}],
  stats:[["1,200+","Students"],["45","Teachers"],["Class 6 to 12","Levels"],["95%","Board pass rate"]],
  about:"Write the school's history, vision and mission here. Government Higher Secondary School Bhabra is committed to quality education in a safe and disciplined environment.",
- aboutImg:"https://picsum.photos/seed/ghssbuilding/1000/500",
+ aboutImg:"",
  principalName:"Principal Name",principalImg:"",
  principal:"Write the principal's welcome message here. Education is the foundation of a strong community, and our teachers work every day to help each student succeed.",
  programs:[["Middle (Class 6 to 8)","English, Urdu, Mathematics, Science, Islamiat, Social Studies, Computer."],["Secondary (Class 9 and 10)","Science and Arts groups with board examination preparation."],["Higher Secondary (Class 11 and 12)","Add the groups you offer, for example Pre-Medical, Pre-Engineering, ICS, F.A."]],
@@ -339,11 +341,20 @@ if(FB.apiKey.startsWith("YOUR_")){
  drawSlides((loc("slides")||[]).sort((a,b)=>(a.order??999)-(b.order??999)));
  for(const c of Object.keys(T))show(c,loc(c)||SAMPLE[c].map((d,i)=>({id:"s"+i,...d})));
 }else{
- const db=getFirestore(initializeApp(FB)),q=c=>query(collection(db,c),where("status","==","Active"));
- for(const c of Object.keys(T))onSnapshot(q(c),s=>show(c,s.docs.map(d=>({id:d.id,...d.data()}))),()=>{$(c+"-l").innerHTML='<p class="empty">Could not load. Please try again later.</p>'});
- onSnapshot(doc(db,"settings","profile"),s=>renderStatic(s.exists()?s.data():{}),()=>{});
- onSnapshot(doc(db,"settings","site"),s=>applySet(s.exists()?s.data():{}),()=>applySet({}));
- onSnapshot(q("slides"),s=>drawSlides(s.docs.map(d=>d.data()).sort((a,b)=>(a.order??999)-(b.order??999))),()=>drawSlides([]));
+ // Fast loading: one parallel fetch (Firestore lite), and the last result is cached so repeat visits open instantly.
+ const db=getFirestore(initializeApp(FB)),q=c=>query(collection(db,c),where("status","==","Active"),limit(60)),CK="ghss_cache_v1";
+ const paint2=d=>{applySet(d.set);renderStatic(d.profile);drawSlides(d.slides||[]);for(const c of Object.keys(T))show(c,d[c]||[])};
+ let cached=null;try{cached=JSON.parse(localStorage.getItem(CK)||"null")}catch{}
+ drawSlides([]);if(cached)paint2(cached);
+ const rows=async c=>(await getDocs(q(c))).docs.map(d=>({id:d.id,...d.data()}));
+ const one=async n=>{const x=await getDoc(doc(db,"settings",n));return x.exists()?x.data():{}};
+ (async()=>{try{
+  const keys=[...Object.keys(T),"slides"],res=await Promise.all([...keys.map(rows),one("site"),one("profile")]),d={};
+  keys.forEach((k,i)=>d[k]=res[i]);d.set=res[keys.length];d.profile=res[keys.length+1];
+  d.slides.sort((a,b)=>(a.order??999)-(b.order??999));
+  if(JSON.stringify(d)!==JSON.stringify(cached))paint2(d);
+  try{localStorage.setItem(CK,JSON.stringify(d))}catch{}
+ }catch(e){if(!cached)for(const c of Object.keys(T))$(c+"-l").innerHTML='<p class="empty">Could not load. Please try again later.</p>'}})();
 }
 // scroll effects: progress bar, header shadow, back-to-top, reveal on scroll
 {const hd=document.querySelector("header"),up=$("up"),sp=$("sp");
