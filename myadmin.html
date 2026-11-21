@@ -166,7 +166,7 @@ $("lf").onsubmit=async e=>{e.preventDefault();$("le").textContent="";
  try{await signInWithEmailAndPassword(auth,$("em").value,$("pw").value)}
  catch{$("le").textContent="Sign in failed. Check your email and password."}};
 $("so").onclick=()=>demo?location.reload():signOut(auth);
-const ADMINS=["you@example.com"]; // super admin email(s): UI only, the same email must be in the Firestore rules
+const ADMINS=["waqasanjumseher@gmail.com"]; // super admin email(s): UI only, the same email must be in the Firestore rules
 const authCb=async u=>{
  if(u&&!demo){const em=(u.email||"").toLowerCase();ROLE=ADMINS.includes(em)?"super":null;
   if(!ROLE){try{const r=await getDoc(doc(db,"roles",em));if(r.exists()&&r.data().role==="editor")ROLE="editor"}catch{}}
